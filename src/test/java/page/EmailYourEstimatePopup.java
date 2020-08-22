@@ -1,4 +1,4 @@
-package googlecloud.page;
+package page;
 
 import com.paulhammant.ngwebdriver.ByAngularModel;
 import com.paulhammant.ngwebdriver.ByAngularPartialButtonText;

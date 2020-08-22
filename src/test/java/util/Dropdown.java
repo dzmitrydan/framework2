@@ -22,14 +22,4 @@ public class Dropdown {
     }
 
 
-    public static void selecItemByElement(WebElement dropdownItem, JavascriptExecutor executor) {
-
-        executor.executeScript("arguments[0].click();", dropdownItem);
-        executor.executeScript("arguments[0].click();", dropdownItem);
-
-        Logger logger = LogManager.getRootLogger();
-        logger.info("Dropdown item with text='" + dropdownItem.getAttribute("innerHTML").trim() +"' selected");
-    }
-
-
 }

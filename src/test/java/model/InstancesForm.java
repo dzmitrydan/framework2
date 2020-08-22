@@ -1,4 +1,4 @@
-package googlecloud.model;
+package model;
 
 public class InstancesForm {
 

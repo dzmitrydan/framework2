@@ -1,9 +1,9 @@
-package googlecloud.page;
+package page;
 
 import com.paulhammant.ngwebdriver.ByAngularModel;
 import com.paulhammant.ngwebdriver.ByAngularPartialButtonText;
 import com.paulhammant.ngwebdriver.NgWebDriver;
-import googlecloud.model.InstancesForm;
+import model.InstancesForm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;

@@ -1,4 +1,4 @@
-package googlecloud.page;
+package page;
 
 import com.paulhammant.ngwebdriver.ByAngular;
 import com.paulhammant.ngwebdriver.ByAngularPartialButtonText;
@@ -68,5 +68,21 @@ public class PricingCalculatorPageComputeEnginePopup extends AbstractPage {
         return new EmailYourEstimatePopup(driver);
     }
 
+
+    public String getVMClass(){
+        return vMclass.getText();
+    }
+
+    public String getInstanceType(){
+        return instanceType.getText();
+    }
+
+    public String getRegion(){
+        return region.getText();
+    }
+
+    public String getCommitmentTerm(){
+        return commitmentTerm.getText();
+    }
 
 }

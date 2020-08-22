@@ -1,4 +1,4 @@
-package test;
+package condition;
 
 import driver.DriverSingleton;
 import org.openqa.selenium.WebDriver;
@@ -9,17 +9,15 @@ import util.TestListener;
 
 @Listeners({TestListener.class})
 public class CommonConditions {
-
     protected WebDriver driver;
 
-
     @BeforeMethod()
-    public void setUp(){
+    public void browserSetup(){
         driver = DriverSingleton.getDriver();
     }
 
     @AfterMethod(alwaysRun = true)
-    public void stopBrowser(){
+    public void browserClose(){
         DriverSingleton.closeDriver();
     }
 }

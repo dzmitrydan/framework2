@@ -1,4 +1,4 @@
-package googlecloud.page;
+package page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,10 +27,8 @@ public class GoogleCloudHomePage extends AbstractPage {
     }
 
     public PricingCalculatorPage openPricingCalculatorPage(){
-        System.out.println("tabPrising: " + tabPrising.getTagName());
         tabPrising.click();
         wait.until(ExpectedConditions.elementToBeClickable(dropdownItemCalculators));
-        System.out.println("dropdownItemCalculators: " + dropdownItemCalculators.getTagName());
         dropdownItemCalculators.click();
 
         for (String handle : driver.getWindowHandles()) {

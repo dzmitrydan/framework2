@@ -1,7 +1,7 @@
-package googlecloud.servise;
+package servise;
 
 
-import googlecloud.model.InstancesForm;
+import model.InstancesForm;
 
 public class InstancesFormCreator {
 
@@ -32,7 +32,5 @@ public class InstancesFormCreator {
                 TestDataReader.getTestData(DATACENTER_LOCATION),
                 TestDataReader.getTestData(COMMITED_USAGE));
     }
-
-
 
 }

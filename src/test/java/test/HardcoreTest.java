@@ -1,38 +1,29 @@
 package test;
 
-import driver.DriverSingleton;
-import googlecloud.model.InstancesForm;
-import googlecloud.page.EmailYourEstimatePopup;
-import googlecloud.page.GoogleCloudHomePage;
-import googlecloud.page.HomePage10MinuteMail;
-import googlecloud.page.PricingCalculatorPageComputeEnginePopup;
-import googlecloud.servise.InstancesFormCreator;
+import condition.CommonConditions;
+import model.InstancesForm;
+import page.EmailYourEstimatePopup;
+import page.GoogleCloudHomePage;
+import page.HomePage10MinuteMail;
+import page.PricingCalculatorPageComputeEnginePopup;
+import servise.InstancesFormCreator;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import util.WebBrowser;
 
 public class HardcoreTest extends CommonConditions {
 
-    private PricingCalculatorPageComputeEnginePopup pricingCalculatorPageComputeEnginePopup;
 
-
-    @BeforeMethod()
-    public void browserSetup(){
-
-        driver = DriverSingleton.getDriver();
+    @Test
+    public void totalEstimatedCostInEmailIsMatchToPricingCalculatorPage(){
 
         InstancesForm testInstancesForm = InstancesFormCreator.withEmptyWhatAreTheseInstances();
 
         GoogleCloudHomePage googleCloudHomePage = new GoogleCloudHomePage(driver);
-        pricingCalculatorPageComputeEnginePopup = googleCloudHomePage.openHomePage()
+        PricingCalculatorPageComputeEnginePopup pricingCalculatorPageComputeEnginePopup = googleCloudHomePage.openHomePage()
                 .openPricingCalculatorPage()
                 .goToTabComputeEngine()
                 .fillingAndSubmitInstancesForm(testInstancesForm);
-    }
-
-    @Test
-    public void totalEstimatedCostInEmailIsMatchToPricingCalculatorPage(){
 
         double totalEstimatedCostTextOnPricingCalculatorPage = pricingCalculatorPageComputeEnginePopup.getTotalEstimatedCostPerMonth();
 
@@ -54,6 +45,4 @@ public class HardcoreTest extends CommonConditions {
 
         Assert.assertEquals(actualTotalEstimatedMonthlyCostInEmail, totalEstimatedCostTextOnPricingCalculatorPage);
     }
-
-
 }

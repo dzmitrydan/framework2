@@ -1,4 +1,4 @@
-package googlecloud.servise;
+package servise;
 
 import java.util.ResourceBundle;
 

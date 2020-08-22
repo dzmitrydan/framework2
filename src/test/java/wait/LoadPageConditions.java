@@ -1,4 +1,4 @@
-package googlecloud.wait;
+package wait;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
