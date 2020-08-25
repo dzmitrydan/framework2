@@ -13,9 +13,8 @@ import util.WebBrowser;
 
 public class HardcoreTest extends CommonConditions {
 
-
     @Test
-    public void totalEstimatedCostInEmailIsMatchToPricingCalculatorPage(){
+    public void totalEstimatedCostInEmailIsMatchToPricingCalculatorPage() {
 
         InstancesForm testInstancesForm = InstancesFormCreator.withEmptyWhatAreTheseInstances();
 
@@ -38,7 +37,6 @@ public class HardcoreTest extends CommonConditions {
 
         webBrowser.openExistingWebBrowserTab(driver, emailYourEstimatePopup.getWebBrowserTab());
         emailYourEstimatePopup.fillingAndSubmitEmailYourEstimateForm(mailAddress);
-
 
         webBrowser.openExistingWebBrowserTab(driver, homePage10MinuteMail.getWebBrowserTab());
         double actualTotalEstimatedMonthlyCostInEmail = homePage10MinuteMail.getTotalEstimatedMonthlyCost();

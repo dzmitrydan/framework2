@@ -11,13 +11,13 @@ public class Dropdown {
 
     public static void selecItemByText(String dropdownItemText, WebDriver driver, JavascriptExecutor executor) {
 
-        if (!dropdownItemText.isEmpty()){
-            WebElement dropdownItem = driver.findElement(By.xpath("//div[contains(text(), '" + dropdownItemText +"')]"));
+        if (!dropdownItemText.isEmpty()) {
+            WebElement dropdownItem = driver.findElement(By.xpath("//div[contains(text(), '" + dropdownItemText + "')]"));
             executor.executeScript("arguments[0].click();", dropdownItem);
             executor.executeScript("arguments[0].click();", dropdownItem);
 
             Logger logger = LogManager.getRootLogger();
-            logger.info("Dropdown item with text='" + dropdownItem.getAttribute("innerHTML").trim() +"' selected");
+            logger.info("Dropdown item with text='" + dropdownItem.getAttribute("innerHTML").trim() + "' selected");
         }
     }
 

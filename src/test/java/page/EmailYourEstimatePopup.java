@@ -13,22 +13,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class EmailYourEstimatePopup extends AbstractPage {
 
-    private NgWebDriver ngDriver;
-    private String webBrowserTab;
-
     private final Logger logger = LogManager.getRootLogger();
+    private final NgWebDriver ngDriver;
+    private final String webBrowserTab;
 
-
-    protected EmailYourEstimatePopup(WebDriver driver) {
-        super(driver);
-        ngDriver = new NgWebDriver((JavascriptExecutor) driver);
-        ngDriver.waitForAngularRequestsToFinish();
-        webBrowserTab = driver.getWindowHandle();
-    }
-
-
-
-    @FindBy(xpath ="//devsite-iframe/iframe")
+    @FindBy(xpath = "//devsite-iframe/iframe")
     private WebElement frame;
 
     @FindBy(id = "myFrame")
@@ -40,9 +29,14 @@ public class EmailYourEstimatePopup extends AbstractPage {
     @ByAngularPartialButtonText.FindBy(partialButtonText = "Send Email")
     private WebElement buttonSendEmail;
 
+    protected EmailYourEstimatePopup(WebDriver driver) {
+        super(driver);
+        ngDriver = new NgWebDriver((JavascriptExecutor) driver);
+        ngDriver.waitForAngularRequestsToFinish();
+        webBrowserTab = driver.getWindowHandle();
+    }
 
-
-    public void fillingAndSubmitEmailYourEstimateForm(String email){
+    public void fillingAndSubmitEmailYourEstimateForm(String email) {
 
         driver.switchTo().defaultContent();
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
@@ -55,10 +49,8 @@ public class EmailYourEstimatePopup extends AbstractPage {
         logger.info("The estimate has been sent to email: " + email);
     }
 
-
     public String getWebBrowserTab() {
         return webBrowserTab;
     }
-
 
 }

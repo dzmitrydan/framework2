@@ -18,27 +18,16 @@ import util.Dropdown;
 
 public class PricingCalculatorPage extends AbstractPage {
 
+    private final Logger logger = LogManager.getRootLogger();
     private NgWebDriver ngDriver;
 
-    private final Logger logger = LogManager.getRootLogger();
-
-
-    public PricingCalculatorPage(WebDriver driver) {
-        super(driver);
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameMyFrame));
-        ngDriver = new NgWebDriver((JavascriptExecutor) driver);
-        ngDriver.waitForAngularRequestsToFinish();
-    }
-
-
-    @FindBy(xpath ="//iframe[contains(@name, 'goog')]")
+    @FindBy(xpath = "//iframe[contains(@name, 'goog')]")
     private WebElement frame;
 
     @FindBy(id = "myFrame")
     private WebElement frameMyFrame;
 
-    @FindBy(xpath ="//*[contains(@title, 'Compute Engine')]")
+    @FindBy(xpath = "//*[contains(@title, 'Compute Engine')]")
     private WebElement tabComputeEngine;
 
     @FindBy(name = "quantity")
@@ -53,14 +42,20 @@ public class PricingCalculatorPage extends AbstractPage {
     @ByAngularPartialButtonText.FindBy(partialButtonText = "Add to Estimate")
     private WebElement buttonAddToEstimate;
 
+    public PricingCalculatorPage(WebDriver driver) {
+        super(driver);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameMyFrame));
+        ngDriver = new NgWebDriver((JavascriptExecutor) driver);
+        ngDriver.waitForAngularRequestsToFinish();
+    }
 
-    public PricingCalculatorPage goToTabComputeEngine(){
+    public PricingCalculatorPage goToTabComputeEngine() {
         executor.executeScript("arguments[0].click();", tabComputeEngine);
         return this;
     }
 
-
-    public PricingCalculatorPageComputeEnginePopup fillingAndSubmitInstancesForm(InstancesForm instancesForm){
+    public PricingCalculatorPageComputeEnginePopup fillingAndSubmitInstancesForm(InstancesForm instancesForm) {
 
         inputNumberOfInstances.sendKeys(instancesForm.getNumberOfInstances());
 
@@ -92,6 +87,5 @@ public class PricingCalculatorPage extends AbstractPage {
 
         return new PricingCalculatorPageComputeEnginePopup(driver);
     }
-
 
 }

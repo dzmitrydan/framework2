@@ -19,7 +19,7 @@ public class HurtMePlentyTest {
     private InstancesForm testInstancesForm;
 
     @BeforeMethod
-    public void browserSetup(){
+    public void browserSetup() {
         driver = DriverSingleton.getDriver();
         testInstancesForm = InstancesFormCreator.withEmptyWhatAreTheseInstances();
 
@@ -31,32 +31,32 @@ public class HurtMePlentyTest {
     }
 
     @Test
-    public void matchingTextVMClassToInputtedInTheForm(){
+    public void matchingTextVMClassToInputtedInTheForm() {
         String actualVMClassText = pricingCalculatorPageComputeEnginePopup.getVMClass();
         Assert.assertEquals(StringExtractor.stringCapitalize(StringExtractor.deleteTextBeforeColon(actualVMClassText)), testInstancesForm.getMachineClass());
     }
 
     @Test
-    public void matchingTextInstanceTypeToInputtedInTheForm(){
+    public void matchingTextInstanceTypeToInputtedInTheForm() {
         String actualInstanceTypeText = pricingCalculatorPageComputeEnginePopup.getInstanceType();
         Assert.assertEquals(StringExtractor.deleteTextBeforeColon(actualInstanceTypeText), StringExtractor.deleteTextInTheBrackets(testInstancesForm.getMachineType()));
     }
 
     @Test
-    public void matchingTextRegionToInputtedInTheForm(){
+    public void matchingTextRegionToInputtedInTheForm() {
         String actualRegionText = pricingCalculatorPageComputeEnginePopup.getRegion();
-        Assert.assertEquals(StringExtractor.deleteTextBeforeColon(actualRegionText) , StringExtractor.deleteTextInTheBrackets(testInstancesForm.getDatacenterLocation()));
+        Assert.assertEquals(StringExtractor.deleteTextBeforeColon(actualRegionText), StringExtractor.deleteTextInTheBrackets(testInstancesForm.getDatacenterLocation()));
     }
 
     @Test
-    public void matchingTextCommitmentTermToInputtedInTheForm(){
+    public void matchingTextCommitmentTermToInputtedInTheForm() {
         String actualCommitmentTermText = pricingCalculatorPageComputeEnginePopup.getCommitmentTerm();
         Assert.assertEquals(StringExtractor.deleteTextBeforeColon(actualCommitmentTermText), testInstancesForm.getCommitedUsage());
     }
 
 
     @AfterMethod(alwaysRun = true)
-    public void browserClose(){
+    public void browserClose() {
         DriverSingleton.closeDriver();
     }
 

@@ -17,8 +17,6 @@ public class InstancesFormCreator {
     public static final String DATACENTER_LOCATION = "testdata.instancesform.datacenterlocation";
     public static final String COMMITED_USAGE = "testdata.instancesform.commitedusage";
 
-
-
     public static InstancesForm withEmptyWhatAreTheseInstances(){
         return new InstancesForm(TestDataReader.getTestData(NUMBER_OF_INSTANCES),
                 TestDataReader.getTestData(WHAT_ARE_THESE_INSTANCES_FOR),

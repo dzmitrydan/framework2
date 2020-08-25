@@ -4,12 +4,12 @@ import org.apache.commons.lang3.StringUtils;
 
 public class StringExtractor {
 
-    public static String deleteTextBeforeColon(String string){
+    public static String deleteTextBeforeColon(String string) {
         String[] words = string.split(":");
-        return words[words.length-1].trim();
+        return words[words.length - 1].trim();
     }
 
-    public static String deleteTextInTheBrackets(String string){
+    public static String deleteTextInTheBrackets(String string) {
         return string.replaceAll("\\([^()]*\\)", "").trim();
     }
 
