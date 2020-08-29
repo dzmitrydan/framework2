@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class EmailYourEstimatePopup extends AbstractPage {
 
     private final Logger logger = LogManager.getRootLogger();
-    private final NgWebDriver ngDriver;
+    private NgWebDriver ngDriver;
     private final String webBrowserTab;
 
     @FindBy(xpath = "//devsite-iframe/iframe")

@@ -45,10 +45,9 @@ public class InstancesFormCreator {
                 TestDataReader.getTestData(COMMITED_USAGE));
     }
 
-
     public static InstancesForm withNotIntegerInputValueOfNumberOfInstances() {
         return new InstancesForm("four",
-                TestDataReader.getTestData(OPERATING_SYSTEM_SOFTWARE),
+                TestDataReader.getTestData(WHAT_ARE_THESE_INSTANCES_FOR),
                 TestDataReader.getTestData(OPERATING_SYSTEM_SOFTWARE),
                 TestDataReader.getTestData(MACHINE_CLASS),
                 TestDataReader.getTestData(MACHINE_TYPE),

@@ -17,27 +17,24 @@ import util.DataTypeConverter;
 public class PricingCalculatorPageComputeEnginePopup extends AbstractPage {
 
     private final Logger logger = LogManager.getRootLogger();
-    private final NgWebDriver ngDriver;
+    private NgWebDriver ngDriver;
 
     @FindBy(id = "compute")
     private WebElement popupComputeEngine;
 
-    @FindBy(xpath = "//md-list-item[2]")
+    @FindBy(xpath = "//div[contains(text(), 'VM class')]")
     private WebElement vMclass;
 
-    @FindBy(xpath = "//md-list-item[3]")
+    @FindBy(xpath = "//div[contains(text(), 'Instance type')]")
     private WebElement instanceType;
 
-    @FindBy(xpath = "//md-list-item[4]")
+    @FindBy(xpath = "//div[contains(text(), 'Region')]")
     private WebElement region;
 
-    @FindBy(xpath = "//md-list-item[5]")
-    private WebElement localSSD;
-
-    @FindBy(xpath = "//md-list-item[6]")
+    @FindBy(xpath = "//div[contains(text(), 'Commitment term')]")
     private WebElement commitmentTerm;
 
-    @FindBy(xpath = "//h2[@class='md-title']/b[@class='ng-binding']")
+    @FindBy(xpath = "//b[contains(text(), 'Total Estimated Cost')]")
     private WebElement totalEstimatedCostPerMonth;
 
     @ByAngularPartialButtonText.FindBy(partialButtonText = "Email Estimate")
