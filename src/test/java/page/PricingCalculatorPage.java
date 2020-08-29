@@ -22,13 +22,11 @@ public class PricingCalculatorPage extends AbstractPage {
     private final Logger logger = LogManager.getRootLogger();
     private final NgWebDriver ngDriver;
 
-    private final By frameLocatorGoog = By.xpath("//devsite-iframe/iframe");
+    private final By frameGoogLocator = By.xpath("//devsite-iframe/iframe");
+    private final By tabComputeEngineLocator = By.xpath("//*[contains(@title, 'Compute Engine')]");
 
     @FindBy(id = "myFrame")
     private WebElement frameMyFrame;
-
-    @FindBy(xpath = "//*[contains(@title, 'Compute Engine')]")
-    private WebElement tabComputeEngine;
 
     @FindBy(xpath = "//input[@ng-model='listingCtrl.computeServer.quantity']")
     private WebElement inputNumberOfInstances;
@@ -62,40 +60,34 @@ public class PricingCalculatorPage extends AbstractPage {
 
         WebElement frameGoog = fluentWait.until(new Function<WebDriver, WebElement>() {
             public WebElement apply(WebDriver driver) {
-                return driver.findElement(frameLocatorGoog);
+                return driver.findElement(frameGoogLocator);
             }
         });
         driver.switchTo().frame(frameGoog);
-
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameMyFrame));
+
+        WebElement tabComputeEngine = fluentWait.until(new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver driver) {
+                return driver.findElement(tabComputeEngineLocator);
+            }
+        });
+
         executor.executeScript("arguments[0].click();", tabComputeEngine);
         return this;
     }
 
     public PricingCalculatorPage fillingInstancesForm(InstancesForm instancesForm) {
-
         inputNumberOfInstances.sendKeys(instancesForm.getNumberOfInstances());
-
         inputWhatAreTheseInstancesFor.sendKeys(instancesForm.getWhatAreTheseInstancesFor());
-
         Dropdown.selecItemByText(instancesForm.getOperatingSystemSoftware(), driver, executor);
-
         Dropdown.selecItemByText(instancesForm.getMachineClass(), driver, executor);
-
         Dropdown.selecItemByText(instancesForm.getMachineType(), driver, executor);
-
         Checkbox.check(checkboxAddGPUs, instancesForm.isCheckAddGPUs(), executor);
-
         Dropdown.selecItemByText(instancesForm.getNumberOfGPUs(), driver, executor);
-
         Dropdown.selecItemByText(instancesForm.getgPUType(), driver, executor);
-
         Dropdown.selecItemByText(instancesForm.getLocalSSD(), driver, executor);
-
         Dropdown.selecItemByText(instancesForm.getDatacenterLocation(), driver, executor);
-
         Dropdown.selecItemByText(instancesForm.getCommitedUsage(), driver, executor);
-
         logger.info("Data in the 'Instances' Form: " + instancesForm.toString());
         return this;
     }
