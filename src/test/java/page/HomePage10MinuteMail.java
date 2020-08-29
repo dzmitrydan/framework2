@@ -37,7 +37,6 @@ public class HomePage10MinuteMail extends AbstractPage {
 
     public HomePage10MinuteMail openHomePage10MinuteMail() {
         driver.get(HOMEPAGE_URL);
-
         wait.until(LoadPageConditions.jQueryAJAXsCompleted());
         webBrowserTab = driver.getWindowHandle();
         return this;
@@ -53,11 +52,8 @@ public class HomePage10MinuteMail extends AbstractPage {
     public double getTotalEstimatedMonthlyCost() {
         waitMessage = new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS_FOR_MESSAGE);
         waitMessage.until(ExpectedConditions.visibilityOf(messageFromGoogleCloud)).click();
-
         logger.info("Email with total cost has been received");
-
         executor.executeScript("arguments[0].scrollIntoView(true);", totalEstimatedMonthlyCost);
-
         String stringTotalEstimatedMonthlyCost = totalEstimatedMonthlyCost.getText();
         return DataTypeConverter.stringToDouble(stringTotalEstimatedMonthlyCost);
     }

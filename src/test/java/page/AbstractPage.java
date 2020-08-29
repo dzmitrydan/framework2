@@ -16,7 +16,6 @@ public abstract class AbstractPage {
         this.driver = driver;
         wait = new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS);
         executor = (JavascriptExecutor) driver;
-
         PageFactory.initElements(driver, this);
     }
 

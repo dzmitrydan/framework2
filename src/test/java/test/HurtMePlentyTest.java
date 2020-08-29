@@ -1,63 +1,60 @@
 package test;
 
-import driver.DriverSingleton;
+import condition.CommonConditions;
 import model.InstancesForm;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import page.GoogleCloudHomePage;
+import page.PricingCalculatorPage;
 import page.PricingCalculatorPageComputeEnginePopup;
 import servise.InstancesFormCreator;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import util.StringExtractor;
 
-public class HurtMePlentyTest {
-    protected WebDriver driver;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
-    private PricingCalculatorPageComputeEnginePopup pricingCalculatorPageComputeEnginePopup;
-    private InstancesForm testInstancesForm;
 
-    @BeforeMethod
-    public void browserSetup() {
-        driver = DriverSingleton.getDriver();
-        testInstancesForm = InstancesFormCreator.withEmptyWhatAreTheseInstances();
+public class HurtMePlentyTest extends CommonConditions {
+
+    @Test(description = "Checking that input fields are matching")
+    public void matchingGettingTextInEestimateComputeEnginePopupToEnteredDataInTheFormInstancesTest() {
+
+        InstancesForm testInstancesForm = InstancesFormCreator.withCredentialsFromProperty();
 
         GoogleCloudHomePage googleCloudHomePage = new GoogleCloudHomePage(driver);
-        pricingCalculatorPageComputeEnginePopup = googleCloudHomePage.openHomePage()
+        PricingCalculatorPageComputeEnginePopup pricingCalculatorPageComputeEnginePopup = googleCloudHomePage.openHomePage()
                 .openPricingCalculatorPage()
                 .goToTabComputeEngine()
-                .fillingAndSubmitInstancesForm(testInstancesForm);
+                .fillingInstancesForm(testInstancesForm)
+                .submitInstancesForm();
+
+        assertThat(pricingCalculatorPageComputeEnginePopup.getEstimateComputeEnginePopupData(),
+                samePropertyValuesAs(testInstancesForm,
+                        "numberOfInstances",
+                        "whatAreTheseInstancesFor",
+                        "operatingSystemSoftware",
+                        "checkAddGPUs",
+                        "numberOfGPUs",
+                        "gPUType",
+                        "localSSD"));
     }
 
-    @Test
-    public void matchingTextVMClassToInputtedInTheForm() {
-        String actualVMClassText = pricingCalculatorPageComputeEnginePopup.getVMClass();
-        Assert.assertEquals(StringExtractor.stringCapitalize(StringExtractor.deleteTextBeforeColon(actualVMClassText)), testInstancesForm.getMachineClass());
-    }
+    @Test(description = "Checking that input field show markup 'invalid' (red color) when Enter not integer in the field")
+    public void doesInputFieldNumberOfInstancesShowMarkupInvalidWhenEnterNotIntegerTest() {
 
-    @Test
-    public void matchingTextInstanceTypeToInputtedInTheForm() {
-        String actualInstanceTypeText = pricingCalculatorPageComputeEnginePopup.getInstanceType();
-        Assert.assertEquals(StringExtractor.deleteTextBeforeColon(actualInstanceTypeText), StringExtractor.deleteTextInTheBrackets(testInstancesForm.getMachineType()));
-    }
+        InstancesForm testInstancesForm = InstancesFormCreator.withNotIntegerInputValueOfNumberOfInstances();
 
-    @Test
-    public void matchingTextRegionToInputtedInTheForm() {
-        String actualRegionText = pricingCalculatorPageComputeEnginePopup.getRegion();
-        Assert.assertEquals(StringExtractor.deleteTextBeforeColon(actualRegionText), StringExtractor.deleteTextInTheBrackets(testInstancesForm.getDatacenterLocation()));
-    }
+        GoogleCloudHomePage googleCloudHomePage = new GoogleCloudHomePage(driver);
+        PricingCalculatorPage pricingCalculatorPage = googleCloudHomePage.openHomePage()
+                .openPricingCalculatorPage()
+                .goToTabComputeEngine()
+                .fillingInstancesForm(testInstancesForm);
 
-    @Test
-    public void matchingTextCommitmentTermToInputtedInTheForm() {
-        String actualCommitmentTermText = pricingCalculatorPageComputeEnginePopup.getCommitmentTerm();
-        Assert.assertEquals(StringExtractor.deleteTextBeforeColon(actualCommitmentTermText), testInstancesForm.getCommitedUsage());
-    }
+        boolean isMarkupInvalid = pricingCalculatorPage.isMarkupInvalidWhenEnterNotInteger();
 
+        String messageAssert = "Input field didn't show markup 'invalid' (red color) when Enter '"
+                + testInstancesForm.getNumberOfInstances() + "'";
 
-    @AfterMethod(alwaysRun = true)
-    public void browserClose() {
-        DriverSingleton.closeDriver();
+        Assert.assertTrue(isMarkupInvalid, messageAssert);
     }
 
 }

@@ -14,12 +14,15 @@ public class InstancesForm {
     private String datacenterLocation;
     private String commitedUsage;
 
+    public InstancesForm() {
+    }
+
     public InstancesForm(String numberOfInstances,
                          String whatAreTheseInstancesFor,
                          String operatingSystemSoftware,
                          String machineClass,
                          String machineType,
-                         String checkAddGPUs,
+                         boolean checkAddGPUs,
                          String numberOfGPUs,
                          String gPUType,
                          String localSSD,
@@ -30,10 +33,20 @@ public class InstancesForm {
         this.operatingSystemSoftware = operatingSystemSoftware;
         this.machineClass = machineClass;
         this.machineType = machineType;
-        this.checkAddGPUs = Boolean.parseBoolean(checkAddGPUs);
+        this.checkAddGPUs = checkAddGPUs;
         this.numberOfGPUs = numberOfGPUs;
         this.gPUType = gPUType;
         this.localSSD = localSSD;
+        this.datacenterLocation = datacenterLocation;
+        this.commitedUsage = commitedUsage;
+    }
+
+    public InstancesForm(String machineClass,
+                         String machineType,
+                         String datacenterLocation,
+                         String commitedUsage) {
+        this.machineClass = machineClass;
+        this.machineType = machineType;
         this.datacenterLocation = datacenterLocation;
         this.commitedUsage = commitedUsage;
     }

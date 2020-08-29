@@ -18,7 +18,7 @@ public class EmailYourEstimatePopup extends AbstractPage {
     private final String webBrowserTab;
 
     @FindBy(xpath = "//devsite-iframe/iframe")
-    private WebElement frame;
+    private WebElement frameGoog;
 
     @FindBy(id = "myFrame")
     private WebElement frameMyFrame;
@@ -39,7 +39,7 @@ public class EmailYourEstimatePopup extends AbstractPage {
     public void fillingAndSubmitEmailYourEstimateForm(String email) {
 
         driver.switchTo().defaultContent();
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameGoog));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameMyFrame));
 
         executor.executeScript("arguments[0].scrollIntoView(false);", inputEmail);

@@ -3,15 +3,16 @@ package page;
 import com.paulhammant.ngwebdriver.ByAngular;
 import com.paulhammant.ngwebdriver.ByAngularPartialButtonText;
 import com.paulhammant.ngwebdriver.NgWebDriver;
+import model.InstancesForm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.DataTypeConverter;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import servise.InstancesFormCreator;
+import util.DataTypeConverter;
 
 public class PricingCalculatorPageComputeEnginePopup extends AbstractPage {
 
@@ -50,7 +51,6 @@ public class PricingCalculatorPageComputeEnginePopup extends AbstractPage {
 
     public double getTotalEstimatedCostPerMonth() {
         wait.until(ExpectedConditions.visibilityOf(popupComputeEngine));
-        WebElement totalEstimatedCostPerMonth = popupComputeEngine.findElement(By.xpath("following-sibling::h2/b"));
         String stringTotalEstimatedCostPerMonth = totalEstimatedCostPerMonth.getText();
         return DataTypeConverter.stringToDouble(stringTotalEstimatedCostPerMonth);
     }
@@ -62,20 +62,11 @@ public class PricingCalculatorPageComputeEnginePopup extends AbstractPage {
         return new EmailYourEstimatePopup(driver);
     }
 
-    public String getVMClass() {
-        return vMclass.getText();
-    }
-
-    public String getInstanceType() {
-        return instanceType.getText();
-    }
-
-    public String getRegion() {
-        return region.getText();
-    }
-
-    public String getCommitmentTerm() {
-        return commitmentTerm.getText();
+    public InstancesForm getEstimateComputeEnginePopupData() {
+        return InstancesFormCreator.estimateComputeEnginePopupData(vMclass.getText(),
+                instanceType.getText(),
+                region.getText(),
+                commitmentTerm.getText());
     }
 
 }

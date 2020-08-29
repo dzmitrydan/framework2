@@ -12,7 +12,6 @@ public class Checkbox {
         if (isChecked) {
             executor.executeScript("arguments[0].click();", checkbox);
         }
-
         Logger logger = LogManager.getRootLogger();
         logger.info("Checkbox is checked = " + checkbox.getAttribute("aria-checked"));
     }
