@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import servise.InstancesFormCreator;
-import util.DataTypeConverter;
+import util.StringExtractor;
 
 public class PricingCalculatorPageComputeEnginePopup extends AbstractPage {
 
@@ -49,7 +49,7 @@ public class PricingCalculatorPageComputeEnginePopup extends AbstractPage {
     public double getTotalEstimatedCostPerMonth() {
         wait.until(ExpectedConditions.visibilityOf(popupComputeEngine));
         String stringTotalEstimatedCostPerMonth = totalEstimatedCostPerMonth.getText();
-        return DataTypeConverter.stringToDouble(stringTotalEstimatedCostPerMonth);
+        return StringExtractor.stringToDouble(stringTotalEstimatedCostPerMonth);
     }
 
     public EmailYourEstimatePopup openEmailYourEstimatePopup() {

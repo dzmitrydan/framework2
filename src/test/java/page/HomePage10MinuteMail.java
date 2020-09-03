@@ -1,6 +1,5 @@
 package page;
 
-import wait.LoadPageConditions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import util.DataTypeConverter;
+import util.StringExtractor;
+import wait.LoadPageConditions;
 
 public class HomePage10MinuteMail extends AbstractPage {
 
@@ -55,7 +55,7 @@ public class HomePage10MinuteMail extends AbstractPage {
         logger.info("Email with total cost has been received");
         executor.executeScript("arguments[0].scrollIntoView(true);", totalEstimatedMonthlyCost);
         String stringTotalEstimatedMonthlyCost = totalEstimatedMonthlyCost.getText();
-        return DataTypeConverter.stringToDouble(stringTotalEstimatedMonthlyCost);
+        return StringExtractor.stringToDouble(stringTotalEstimatedMonthlyCost);
     }
 
     public String getWebBrowserTab() {

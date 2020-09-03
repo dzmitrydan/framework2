@@ -9,12 +9,12 @@ public class StringExtractor {
         return words[words.length - 1].trim();
     }
 
-    public static String deleteTextInTheBrackets(String string) {
-        return string.replaceAll("\\([^()]*\\)", "").trim();
-    }
-
     public static String stringCapitalize(String string) {
         return StringUtils.capitalize(string);
+    }
+
+    public static double stringToDouble(String number) {
+        return Double.parseDouble(number.replaceAll("per.+month|[^\\d.]", ""));
     }
 
 }
