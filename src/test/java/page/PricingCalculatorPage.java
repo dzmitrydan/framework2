@@ -5,21 +5,16 @@ import com.paulhammant.ngwebdriver.ByAngularModel;
 import com.paulhammant.ngwebdriver.ByAngularPartialButtonText;
 import com.paulhammant.ngwebdriver.NgWebDriver;
 import model.InstancesForm;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
-import util.Checkbox;
-import util.Dropdown;
 
 import java.time.Duration;
 
 public class PricingCalculatorPage extends AbstractPage {
 
-    private final Logger logger = LogManager.getRootLogger();
     private NgWebDriver ngDriver;
     private Wait<WebDriver> fluentWait;
 
@@ -42,6 +37,9 @@ public class PricingCalculatorPage extends AbstractPage {
     @ByAngularPartialButtonText.FindBy(partialButtonText = "Add to Estimate")
     private WebElement buttonAddToEstimate;
 
+    @FindBy(id = "compute")
+    private WebElement popupComputeEngine;
+
     public PricingCalculatorPage(WebDriver driver) {
         super(driver);
         ngDriver = new NgWebDriver((JavascriptExecutor) driver);
@@ -50,43 +48,34 @@ public class PricingCalculatorPage extends AbstractPage {
 
     public PricingCalculatorPage goToTabComputeEngine() {
 
-        fluentWait = new FluentWait<WebDriver>(driver)
+        fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(15))
                 .pollingEvery(Duration.ofSeconds(3))
                 .ignoring(NoSuchElementException.class)
                 .ignoring(StaleElementReferenceException.class)
                 .withMessage("Timeout for waiting search web element was exceeded");
 
-        WebElement frameGoog = fluentWait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver) {
-                return driver.findElement(frameGoogLocator);
-            }
-        });
+        WebElement frameGoog = fluentWait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(frameGoogLocator));
         driver.switchTo().frame(frameGoog);
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameMyFrame));
 
-        WebElement tabComputeEngine = fluentWait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver) {
-                return driver.findElement(tabComputeEngineLocator);
-            }
-        });
-
-        executor.executeScript("arguments[0].click();", tabComputeEngine);
+        WebElement tabComputeEngine = fluentWait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(tabComputeEngineLocator));
+        clickWebElement(tabComputeEngine);
         return this;
     }
 
     public PricingCalculatorPage fillingInstancesForm(InstancesForm instancesForm) {
         inputNumberOfInstances.sendKeys(instancesForm.getNumberOfInstances());
         inputWhatAreTheseInstancesFor.sendKeys(instancesForm.getWhatAreTheseInstancesFor());
-        Dropdown.selecItemByText(instancesForm.getOperatingSystemSoftware(), driver, executor);
-        Dropdown.selecItemByText(instancesForm.getMachineClass(), driver, executor);
-        Dropdown.selecItemByText(instancesForm.getMachineType(), driver, executor);
-        Checkbox.check(checkboxAddGPUs, instancesForm.isCheckAddGPUs(), executor);
-        Dropdown.selecItemByText(instancesForm.getNumberOfGPUs(), driver, executor);
-        Dropdown.selecItemByText(instancesForm.getgPUType(), driver, executor);
-        Dropdown.selecItemByText(instancesForm.getLocalSSD(), driver, executor);
-        Dropdown.selecItemByText(instancesForm.getDatacenterLocation(), driver, executor);
-        Dropdown.selecItemByText(instancesForm.getCommitedUsage(), driver, executor);
+        dropdownSelectItemByText(instancesForm.getOperatingSystemSoftware());
+        dropdownSelectItemByText(instancesForm.getMachineClass());
+        dropdownSelectItemByText(instancesForm.getMachineType());
+        checkboxCheck(checkboxAddGPUs, instancesForm.isCheckAddGPUs());
+        dropdownSelectItemByText(instancesForm.getNumberOfGPUs());
+        dropdownSelectItemByText(instancesForm.getgPUType());
+        dropdownSelectItemByText(instancesForm.getLocalSSD());
+        dropdownSelectItemByText(instancesForm.getDatacenterLocation());
+        dropdownSelectItemByText(instancesForm.getCommitedUsage());
         logger.info("Data in the 'Instances' Form: " + instancesForm.toString());
         return this;
     }
@@ -94,20 +83,13 @@ public class PricingCalculatorPage extends AbstractPage {
     public PricingCalculatorPageComputeEnginePopup submitInstancesForm() {
         buttonAddToEstimate.submit();
         logger.info("Data on instances have been added for estimation");
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("compute"), "Compute Engine"));
+        wait.until(ExpectedConditions.textToBePresentInElement(popupComputeEngine, "Compute Engine"));
         return new PricingCalculatorPageComputeEnginePopup(driver);
     }
 
     public boolean isMarkupInvalidWhenEnterNotInteger() {
-
-        WebElement inputContainerNumberOfInstances = fluentWait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver) {
-                return driver.findElement(inputContainerNumberOfInstancesLocator);
-            }
-        });
-
+        WebElement inputContainerNumberOfInstances = fluentWait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(inputContainerNumberOfInstancesLocator));
         String[] classAttributes = inputContainerNumberOfInstances.getAttribute("class").split(" ");
-
         boolean inputContainerNumberOfInstancesHasClassValueInvalid = false;
 
         for (String attribute : classAttributes) {

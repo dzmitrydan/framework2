@@ -4,8 +4,6 @@ import com.paulhammant.ngwebdriver.ByAngular;
 import com.paulhammant.ngwebdriver.ByAngularPartialButtonText;
 import com.paulhammant.ngwebdriver.NgWebDriver;
 import model.InstancesForm;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,7 +14,6 @@ import util.StringExtractor;
 
 public class PricingCalculatorPageComputeEnginePopup extends AbstractPage {
 
-    private final Logger logger = LogManager.getRootLogger();
     private NgWebDriver ngDriver;
 
     @FindBy(id = "compute")
@@ -54,7 +51,7 @@ public class PricingCalculatorPageComputeEnginePopup extends AbstractPage {
 
     public EmailYourEstimatePopup openEmailYourEstimatePopup() {
         wait.until((ExpectedConditions.visibilityOfAllElementsLocatedBy(ByAngular.partialButtonText("Email Estimate"))));
-        executor.executeScript("arguments[0].click();", buttonEmailEstimate);
+        clickWebElement(buttonEmailEstimate);
         logger.info("Opened 'Email Your Estimate' Popup Form");
         return new EmailYourEstimatePopup(driver);
     }

@@ -3,8 +3,6 @@ package page;
 import com.paulhammant.ngwebdriver.ByAngularModel;
 import com.paulhammant.ngwebdriver.ByAngularPartialButtonText;
 import com.paulhammant.ngwebdriver.NgWebDriver;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,7 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class EmailYourEstimatePopup extends AbstractPage {
 
-    private final Logger logger = LogManager.getRootLogger();
     private NgWebDriver ngDriver;
     private final String webBrowserTab;
 
@@ -44,7 +41,7 @@ public class EmailYourEstimatePopup extends AbstractPage {
 
         executor.executeScript("arguments[0].scrollIntoView(false);", inputEmail);
         inputEmail.sendKeys(email);
-        executor.executeScript("arguments[0].click();", buttonSendEmail);
+        clickWebElement(buttonSendEmail);
 
         logger.info("The estimate has been sent to email: " + email);
     }

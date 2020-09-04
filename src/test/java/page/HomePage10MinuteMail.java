@@ -1,7 +1,5 @@
 package page;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,7 +13,6 @@ public class HomePage10MinuteMail extends AbstractPage {
     private static final String HOMEPAGE_URL = "https://10minutemail.com";
     private static final int WAIT_TIMEOUT_SECONDS_FOR_MESSAGE = 60;
 
-    private final Logger logger = LogManager.getRootLogger();
     private WebDriverWait waitMessage;
     private String webBrowserTab;
 

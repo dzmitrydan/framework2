@@ -14,9 +14,6 @@ public class InstancesForm {
     private String datacenterLocation;
     private String commitedUsage;
 
-    public InstancesForm() {
-    }
-
     public InstancesForm(String numberOfInstances,
                          String whatAreTheseInstancesFor,
                          String operatingSystemSoftware,
