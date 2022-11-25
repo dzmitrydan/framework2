@@ -1,5 +1,6 @@
 package page;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,11 +10,8 @@ public class GoogleCloudHomePage extends AbstractPage {
 
     private static final String HOMEPAGE_URL = "https://cloud.google.com";
 
-    @FindBy(xpath = "//a[@href='/pricing']")
-    private WebElement tabPrising;
-
-    @FindBy(xpath = "//a[@href='/products/calculator']")
-    private WebElement dropdownItemCalculators;
+    @FindBy(name = "q")
+    private WebElement searchButton;
 
     public GoogleCloudHomePage(WebDriver driver) {
         super(driver);
@@ -21,20 +19,15 @@ public class GoogleCloudHomePage extends AbstractPage {
 
     public GoogleCloudHomePage openHomePage() {
         driver.get(HOMEPAGE_URL);
-        wait.until(ExpectedConditions.elementToBeClickable(tabPrising));
-        logger.info("Opened 'Google Cloud HomePage'");
+        logger.info("Opened 'GoogleCloudHome Page'");
         return this;
     }
 
-    public PricingCalculatorPage openPricingCalculatorPage() {
-        tabPrising.click();
-        wait.until(ExpectedConditions.elementToBeClickable(dropdownItemCalculators));
-        dropdownItemCalculators.click();
-
-        for (String handle : driver.getWindowHandles()) {
-            driver.switchTo().window(handle);
-        }
-
-        return new PricingCalculatorPage(driver);
+    public SearchPage searchPage(String page) {
+        wait.until(ExpectedConditions.elementToBeClickable(searchButton)).click();
+        searchButton.sendKeys(page);
+        searchButton.sendKeys(Keys.RETURN);
+        logger.info("Opened 'PricingCalculator Page'");
+        return new SearchPage(driver);
     }
 }

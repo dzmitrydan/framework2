@@ -6,7 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AbstractPage {
@@ -27,15 +29,6 @@ public abstract class AbstractPage {
 
     protected void clickWebElement(WebElement webElement) {
         executor.executeScript("arguments[0].click();", webElement);
-    }
-
-    protected void dropdownSelectItemByText(String dropdownItemText) {
-        if (!dropdownItemText.isEmpty()) {
-            WebElement dropdownItem = driver.findElement(By.xpath("//div[contains(text(), '" + dropdownItemText + "')]"));
-            clickWebElement(dropdownItem);
-            clickWebElement(dropdownItem);
-            logger.info("Dropdown item with text='" + dropdownItem.getAttribute("innerHTML").trim() + "' selected");
-        }
     }
 
     protected void checkboxCheck(WebElement checkbox, boolean isChecked) {

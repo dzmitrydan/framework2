@@ -17,10 +17,8 @@ public class PricingCalculatorPage extends AbstractPage {
 
     private NgWebDriver ngDriver;
     private Wait<WebDriver> fluentWait;
-
     private final By frameGoogLocator = By.xpath("//devsite-iframe/iframe");
     private final By tabComputeEngineLocator = By.xpath("//*[contains(@title, 'Compute Engine')]");
-    private final By inputContainerNumberOfInstancesLocator = By.xpath("//input[@ng-model='listingCtrl.computeServer.quantity']/parent::md-input-container");
 
     @FindBy(id = "myFrame")
     private WebElement frameMyFrame;
@@ -30,9 +28,6 @@ public class PricingCalculatorPage extends AbstractPage {
 
     @ByAngularModel.FindBy(model = "listingCtrl.computeServer.label")
     private WebElement inputWhatAreTheseInstancesFor;
-
-    @ByAngularModel.FindBy(model = "listingCtrl.computeServer.addGPUs")
-    private WebElement checkboxAddGPUs;
 
     @ByAngularPartialButtonText.FindBy(partialButtonText = "Add to Estimate")
     private WebElement buttonAddToEstimate;
@@ -67,16 +62,12 @@ public class PricingCalculatorPage extends AbstractPage {
     public PricingCalculatorPage fillingInstancesForm(InstancesForm instancesForm) {
         inputNumberOfInstances.sendKeys(instancesForm.getNumberOfInstances());
         inputWhatAreTheseInstancesFor.sendKeys(instancesForm.getWhatAreTheseInstancesFor());
-        dropdownSelectItemByText(instancesForm.getOperatingSystemSoftware());
-        dropdownSelectItemByText(instancesForm.getMachineClass());
-        dropdownSelectItemByText(instancesForm.getMachineType());
-        checkboxCheck(checkboxAddGPUs, instancesForm.isCheckAddGPUs());
-        dropdownSelectItemByText(instancesForm.getNumberOfGPUs());
-        dropdownSelectItemByText(instancesForm.getgPUType());
-        dropdownSelectItemByText(instancesForm.getLocalSSD());
-        dropdownSelectItemByText(instancesForm.getDatacenterLocation());
-        dropdownSelectItemByText(instancesForm.getCommitedUsage());
-        logger.info("Data in the 'Instances' Form: " + instancesForm.toString());
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        logger.info("Data in the 'Instances' Form");
         return this;
     }
 
@@ -85,20 +76,6 @@ public class PricingCalculatorPage extends AbstractPage {
         logger.info("Data on instances have been added for estimation");
         wait.until(ExpectedConditions.textToBePresentInElement(popupComputeEngine, "Compute Engine"));
         return new PricingCalculatorPageComputeEnginePopup(driver);
-    }
-
-    public boolean isMarkupInvalidWhenEnterNotInteger() {
-        WebElement inputContainerNumberOfInstances = fluentWait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(inputContainerNumberOfInstancesLocator));
-        String[] classAttributes = inputContainerNumberOfInstances.getAttribute("class").split(" ");
-        boolean inputContainerNumberOfInstancesHasClassValueInvalid = false;
-
-        for (String attribute : classAttributes) {
-            if (attribute.equals("md-input-invalid")) {
-                inputContainerNumberOfInstancesHasClassValueInvalid = true;
-                break;
-            }
-        }
-        return inputContainerNumberOfInstancesHasClassValueInvalid;
     }
 
 }
