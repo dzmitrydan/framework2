@@ -5,6 +5,7 @@
     <test name="Regression Test">
         <classes>
             <class name="test.GoogleCloudCalculatorTest"/>
+            <class name="test.GoogleCloudCalculatorTest"/>
         </classes>
     </test>
 </suite>
